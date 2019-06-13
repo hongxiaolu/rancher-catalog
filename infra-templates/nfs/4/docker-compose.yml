@@ -3,6 +3,7 @@ services:
   nfs-driver:
     privileged: true
     image: rancher/storage-nfs:v0.8.5
+    cgroup_parent: /system_docker
     network_mode: host
     labels:
       io.rancher.scheduler.global: 'true'

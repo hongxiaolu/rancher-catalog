@@ -2,6 +2,7 @@ version: '2'
 services:
   container-crontab:
     image: rancher/container-crontab:v0.5.0
+    cgroup_parent: /system_docker
     privileged: true
     environment:
       DOCKER_API_VERSION: 1.24

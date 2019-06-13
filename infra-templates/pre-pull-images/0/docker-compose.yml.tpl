@@ -2,6 +2,7 @@ version: '2'
 services:
   pre-pull-images:
     image: rancher/pre-pull-images:v0.2.2
+    cgroup_parent: /system_docker
     {{- if eq .Values.PRIVILEGED "true"}}
     privileged: true
     {{- end}}

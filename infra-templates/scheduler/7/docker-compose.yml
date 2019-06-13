@@ -2,6 +2,7 @@ version: '2'
 services:
   scheduler:
     image: rancher/scheduler:v0.8.1
+    cgroup_parent: /system_docker
     command: scheduler
     environment:
         RANCHER_DEBUG: '${RANCHER_DEBUG}'

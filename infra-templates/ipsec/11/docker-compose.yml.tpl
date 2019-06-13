@@ -3,6 +3,7 @@ services:
   ipsec:
     # IMPORTANT!!!! DO NOT CHANGE VERSION ON UPGRADE
     image: rancher/net:holder
+    cgroup_parent: /system_docker
     command: sh -c "echo Refer to router sidekick for logs; mkfifo f; exec cat f"
     network_mode: ipsec
     ports:
@@ -18,6 +19,7 @@ services:
     cap_add:
       - NET_ADMIN
     image: rancher/net:v0.11.7
+    cgroup_parent: /system_docker
     network_mode: container:ipsec
     environment:
       RANCHER_DEBUG: '${RANCHER_DEBUG}'
@@ -37,6 +39,7 @@ services:
   cni-driver:
     privileged: true
     image: rancher/net:v0.11.7
+    cgroup_parent: /system_docker
     command: sh -c "touch /var/log/rancher-cni.log && exec tail ---disable-inotify -F /var/log/rancher-cni.log"
     network_mode: host
     pid: host

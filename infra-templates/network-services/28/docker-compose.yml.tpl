@@ -7,6 +7,7 @@ version: '2'
 services:
   network-manager:
     image: {{$netManagerImage}}
+    cgroup_parent: /system_docker
     privileged: true
     network_mode: host
     pid: host
@@ -34,6 +35,7 @@ services:
     cap_add:
     - NET_ADMIN
     image: {{$metadataImage}}
+    cgroup_parent: /system_docker
     network_mode: bridge
     command: start.sh rancher-metadata -reload-interval-limit=${RELOAD_INTERVAL_LIMIT} -subscribe
     labels:
@@ -54,6 +56,7 @@ services:
     cpu_quota: ${CPU_QUOTA}
   dns:
     image: {{$dnsImage}}
+    cgroup_parent: /system_docker
     network_mode: container:metadata
     command: rancher-dns --listen 169.254.169.250:53 --metadata-server=localhost --answers=/etc/rancher-dns/answers.json --recurser-timeout ${DNS_RECURSER_TIMEOUT} --ttl ${TTL}
     labels:

@@ -6,6 +6,7 @@ services:
   cni-driver:
     privileged: true
     image: {{$netImage}}
+    cgroup_parent: /system_docker
     {{- if eq .Values.AUTO_SETUP_FLAT_BRIDGE "true" }}
     environment:
       RANCHER_DEBUG: ${RANCHER_DEBUG}

@@ -5,6 +5,7 @@ services:
     image: rancher/net:holder
     command: sh -c "echo Refer to router sidekick for logs; mkfifo f; exec cat f"
     network_mode: vxlan
+    cgroup_parent: /system_docker
     ports:
       - 4789:4789/udp
     labels:
@@ -24,6 +25,7 @@ services:
     cap_add:
       - NET_ADMIN
     image: rancher/net:v0.11.9
+    cgroup_parent: /system_docker
     network_mode: container:vxlan
     environment:
       RANCHER_DEBUG: '${RANCHER_DEBUG}'
@@ -40,6 +42,7 @@ services:
       net.ipv4.conf.eth0.send_redirects: '0'
   cni-driver:
     privileged: true
+    cgroup_parent: /system_docker
     image: rancher/net:v0.13.1
     command: start-cni-driver.sh
     network_mode: host

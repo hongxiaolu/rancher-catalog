@@ -9,6 +9,7 @@ services:
     image: {{$netImage}}
     command: start-vxlan.sh
     network_mode: host
+    cgroup_parent: /system_docker
     environment:
       RANCHER_DEBUG: '${RANCHER_DEBUG}'
     ports:
@@ -30,6 +31,7 @@ services:
     privileged: true
     image: {{$netImage}}
     command: start-cni-driver.sh
+    cgroup_parent: /system_docker
     network_mode: host
     pid: host
     environment:

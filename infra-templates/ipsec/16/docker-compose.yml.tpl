@@ -6,6 +6,7 @@ services:
   ipsec:
     # IMPORTANT!!!! DO NOT CHANGE VERSION ON UPGRADE
     image: rancher/net:holder
+    cgroup_parent: /system_docker
     command: sh -c "echo Refer to router sidekick for logs; mkfifo f; exec cat f"
     network_mode: ipsec
     ports:
@@ -21,6 +22,7 @@ services:
     cap_add:
       - NET_ADMIN
     image: {{$netImage}}
+    cgroup_parent: /system_docker
     command: start-ipsec.sh
     network_mode: container:ipsec
     environment:
@@ -44,6 +46,7 @@ services:
       net.ipv4.xfrm4_gc_thresh: '2147483647'
   connectivity-check:
     image: {{$netImage}}
+    cgroup_parent: /system_docker
     command:
       - connectivity-check
     environment:
@@ -52,6 +55,7 @@ services:
   cni-driver:
     privileged: true
     image: {{$netImage}}
+    cgroup_parent: /system_docker
     command: start-cni-driver.sh
     network_mode: host
     pid: host
